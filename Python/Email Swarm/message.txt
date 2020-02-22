@@ -1,0 +1,9 @@
+Olá!
+
+Este é o email de número ${email_count} e gostaria de dizer que você é muito bonito!
+
+google.com
+https://www.google.com/
+
+Atenciosamente.
+Arroz, feijão e pica

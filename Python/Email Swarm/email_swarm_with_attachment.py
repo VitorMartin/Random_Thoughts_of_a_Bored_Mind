@@ -78,5 +78,5 @@ with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
     server.login(email_remetente, senha)
 
     for i in range(spam):
-        server.sendmail(email_remetente, lista_emails[0], lista_mensagens[0])
+        server.sendmail(email_remetente, lista_emails[i], lista_mensagens[i])
         print('email %i enviado'%i)
