@@ -1,6 +1,6 @@
 Olá!
 
-Este é o email de número ${email_count} e gostaria de dizer que você é muito bonito!
+Este é o email de número <b>XYZ</b> e gostaria de dizer que você é muito bonito!
 
 google.com
 https://www.google.com/

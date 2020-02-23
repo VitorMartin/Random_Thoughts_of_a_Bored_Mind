@@ -5,7 +5,6 @@ from email.mime.base import MIMEBase
 from email import encoders
 import ssl
 import smtplib
-from string import Template
 import os
 os.system('cls')
 
@@ -24,7 +23,7 @@ def get_contacts(filename, separator):
 def get_body(filename):
     with open(filename, mode='r', encoding='utf-8') as file:
         body = file.read()
-    return Template(body)
+    return body
 
 
 #Variables ==================================================
@@ -87,7 +86,7 @@ with smtplib.SMTP_SSL(host, port, context=context) as server:
         message['To'] = email
         message['Bcc'] = email
         message['Subject'] = subject
-        body = source_body.substitute(email_count=i)
+        body = source_body
         message.attach(MIMEText(body, 'plain'))
 
         #Adding attachment
