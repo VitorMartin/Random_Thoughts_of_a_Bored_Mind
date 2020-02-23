@@ -12,3 +12,10 @@ Site: Tutorials Point
 Article: Send mail with attachment from your Gmail account using Python
 
 https://www.tutorialspoint.com/send-mail-with-attachment-from-your-gmail-account-using-python
+
+## Alternate (easier?) module: yagmail
+Site: Python Package Index (PyPI)
+
+Article: Yagmail
+
+https://pypi.org/project/yagmail/
