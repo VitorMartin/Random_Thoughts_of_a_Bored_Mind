@@ -8,7 +8,7 @@ import smtplib
 from string import Template
 import os
 os.system('cls')
-
+#===
 
 #Functions ==================================================
 def get_contacts(filename, separator):
