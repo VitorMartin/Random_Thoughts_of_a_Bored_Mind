@@ -5,20 +5,6 @@ import yagmail as yg
 
 os.system('cls')
 
-print(
-    '''
-    Bem vindo ao Email Swarm! Esta é uma ferramenta para enviar diversos emails customizados para uma lista de contatos. A seguir segue algumas informações gerais:
-    
-    CONFIGURAÇÕES DE CONTA:
-    1. Você precisa de uma conta Gmail, obrigatoriamente. É recomendado que você crie uma nova conta específica para esse programa, que seja descartável;
-    2. Para permitir o acesso do Email Swarm ao seu email, acesse esse link <https://myaccount.google.com/lesssecureapps> e permita o acesso de aplicativos menos seguros ("Less secure app access");
-    
-    INCLUINDO ANEXO:
-    1. Digite o nome do arquivo a ser anexado. Se não quiser nenhum anexo, basta deixar o espaço em branco e apertar [ENTER].
-        Cuidado! Você tem duas opções para incluir seu anexo. A primeira é copiar o arquivo a ser anexado para a mesma pasta que o Email Swarm se encontra. Outra opção é copiar o caminho COMPLETO do arquivo (C:/Users/[usuario]/Documents/ANEXO.JPG)
-    '''
-)
-
 
 #Functions ==================================================
 def get_contacts(filename, separator):
@@ -29,6 +15,7 @@ def get_contacts(filename, separator):
     with open(filename, mode='r', encoding='utf-8') as file:
         contacts = file.read()
         emails = contacts.split(separator)
+    emails = [email.strip(' ') for email in emails]
     return emails
 
 def get_body(filename):
@@ -81,7 +68,9 @@ attachment_file_name = get_file_name('Digite o nome do arquivo a ser anexado: ')
 # attachment_file_name = 'picture.png'
 
 contacts_file = 'contacts.txt'
-contacts_separator = '\n'
+contacts_separator = input('Digite o separador dos emails: ')
+if contacts_separator == '':
+    contacts_separator = '\n'
 emails = get_contacts(contacts_file, contacts_separator)
 
 subject = input('Digite o assunto do email: ')
