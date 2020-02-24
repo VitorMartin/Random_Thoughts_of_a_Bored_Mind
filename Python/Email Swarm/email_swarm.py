@@ -1,11 +1,8 @@
-#Modules ====================================================
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-from email import encoders
-import ssl
-import smtplib
+#Imports ====================================================
 import os
+
+import yagmail as yg
+
 os.system('cls')
 
 
@@ -25,85 +22,62 @@ def get_body(filename):
         body = file.read()
     return body
 
+def get_file_name(input_text):
+    inp = input(input_text)
+    wrong_inp = True
+    while wrong_inp:
+        try:
+            open(inp, 'rb')
+        except FileNotFoundError:
+            print('\nArquivo não encontrado! Verifique o nome do arquivo e sua extensão.')
+            inp = input('\nDigite o nome do arquivo a ser anexado COM extensão: ')
+        except:
+            print('\nErro desconhecido')
+            inp = ''
+            wrong_inp = False
+        else:
+            wrong_inp = False
+            print()
+    return inp
+
+def get_server():
+    user = input('Digite o email remetente: ')
+    password = input('Digite a senha: ')
+    server = yg.SMTP(user, password=password)
+    return server
+
 
 #Variables ==================================================
-attachment_file_name = input('Digite o nome do arquivo a ser anexado COM extensão: ')
-# attachment_file_name = 'picture.png'
-wrong_attachment = True
-while wrong_attachment:
-    try:
-        attachment_file = open(attachment_file_name, 'rb')
-    except:
-        print('\nNome do anexado errado! Verifique o nome do arquivo e sua extensão.')
-        attachment_file_name = input('Digite o nome do arquivo a ser anexado COM extensão: ')
-    else:
-        wrong_attachment = False
-        print()
+# attachment_file_name = get_file_name('Digite o nome do arquivo a ser anexado COM extensão: ')
+attachment_file_name = 'picture.png'
 
 contacts_file = 'contacts.txt'
 contacts_separator = '\n'
 emails = get_contacts(contacts_file, contacts_separator)
 
-subject = input('Digite o assunto do email: ')
+# subject = input('Digite o assunto do email: ')
+subject = 'Assunto'
 print()
 
-body_file = 'message.txt'
-source_body = get_body(body_file)
-
-host = 'smtp.gmail.com'
-port = 465
+body_file_name = 'message.txt'
+source_body = get_body(body_file_name)
 
 
-#Creating server and ending email ===========================
-context = ssl.create_default_context()
-with smtplib.SMTP_SSL(host, port, context=context) as server:
-    #Logging to email account while catching wrong email or password
-    remetente = input('Digite o email remetente: ')
-    senha = input('Digite a senha do email remetente: ')
-    # remetente = 'arrozefeijao504@gmail.com'
-    # senha = 'arrozfeijaoepica'
-    wrong_password = True
-    print('Fazendo login no seu email...', end='\n\n')
-    while wrong_password:
-        try:
-            server.login(remetente, senha)
-        except:
-            print('Email ou senha incorretos!')
-            remetente = input('Digite o email remetente: ')
-            senha = input('Digite a senha do email remetente: ')
-            print()
-        else:
-            wrong_password = False
-    server.login(remetente, senha)
+#Sending email ==============================================
+server = get_server()
+print('Enviando emails. Não feche essa janela! Você será notificado por email quando terminar...')
 
-    i=0
-    for email in emails:
-        i += 1
+wrong_password = True
+while wrong_password:
+    try:
+        server.send(subject=subject, contents=source_body, attachments=attachment_file_name, bcc=emails)
+    except:
+        print('Email ou senha do remetente incorretos! Digite-os novamente.')
+        server = get_server()
+    else:
+        wrong_password = False
 
-        #Creating email
-        message = MIMEMultipart()
-        message['From'] = remetente
-        message['To'] = email
-        message['Bcc'] = email
-        message['Subject'] = subject
-        body = source_body
-        message.attach(MIMEText(body, 'plain'))
+server.send(subject='Sua lista de transmissão terminou', contents='Sua lista de transmissão terminou.')
 
-        #Adding attachment
-        attachment_file = open(attachment_file_name, 'rb')
-
-        payload = MIMEBase('application', 'octate-stream')
-        payload.set_payload((attachment_file).read())
-        encoders.encode_base64(payload)
-        payload.add_header(
-            'Content-Disposition',
-            f'attachment; filename= {attachment_file_name}'
-        )
-        message.attach(payload)
-        
-        print('Enviando email número %i...' % i, end='\n\n')
-        server.sendmail(remetente, email, message.as_string())
-
-        del message
-
+print()
 input('Fim do processo. Para sair, aperte [ENTER]\n')
