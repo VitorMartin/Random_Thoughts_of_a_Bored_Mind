@@ -5,6 +5,20 @@ import yagmail as yg
 
 os.system('cls')
 
+print(
+    '''
+    Bem vindo ao Email Swarm! Esta é uma ferramenta para enviar diversos emails customizados para uma lista de contatos. A seguir segue algumas informações gerais:
+    
+    CONFIGURAÇÕES DE CONTA:
+    1. Você precisa de uma conta Gmail, obrigatoriamente. É recomendado que você crie uma nova conta específica para esse programa, que seja descartável;
+    2. Para permitir o acesso do Email Swarm ao seu email, acesse esse link <https://myaccount.google.com/lesssecureapps> e permita o acesso de aplicativos menos seguros ("Less secure app access");
+    
+    INCLUINDO ANEXO:
+    1. Digite o nome do arquivo a ser anexado. Se não quiser nenhum anexo, basta deixar o espaço em branco e apertar [ENTER].
+        Cuidado! Você tem duas opções para incluir seu anexo. A primeira é copiar o arquivo a ser anexado para a mesma pasta que o Email Swarm se encontra. Outra opção é copiar o caminho COMPLETO do arquivo (C:/Users/[usuario]/Documents/ANEXO.JPG)
+    '''
+)
+
 
 #Functions ==================================================
 def get_contacts(filename, separator):
@@ -24,6 +38,10 @@ def get_body(filename):
 
 def get_file_name(input_text):
     inp = input(input_text)
+
+    if inp == '':
+        return inp
+
     wrong_inp = True
     while wrong_inp:
         try:
@@ -43,20 +61,31 @@ def get_file_name(input_text):
 def get_server():
     user = input('Digite o email remetente: ')
     password = input('Digite a senha: ')
-    server = yg.SMTP(user, password=password)
+    print()
+    wrong_login = True
+    while wrong_login:
+        try:
+            server = yg.SMTP(user, password=password)
+        except:
+            print('Email ou senha inválidos! Tente novamente.')
+            user = input('Digite o email remetente: ')
+            password = input('Digite a senha: ')
+            print()
+        else:
+            wrong_login = False
     return server
 
 
 #Variables ==================================================
-# attachment_file_name = get_file_name('Digite o nome do arquivo a ser anexado COM extensão: ')
-attachment_file_name = 'picture.png'
+attachment_file_name = get_file_name('Digite o nome do arquivo a ser anexado: ')
+# attachment_file_name = 'picture.png'
 
 contacts_file = 'contacts.txt'
 contacts_separator = '\n'
 emails = get_contacts(contacts_file, contacts_separator)
 
-# subject = input('Digite o assunto do email: ')
-subject = 'Assunto'
+subject = input('Digite o assunto do email: ')
+# subject = 'Assunto'
 print()
 
 body_file_name = 'message.txt'
@@ -65,19 +94,22 @@ source_body = get_body(body_file_name)
 
 #Sending email ==============================================
 server = get_server()
-print('Enviando emails. Não feche essa janela! Você será notificado por email quando terminar...')
+print('Enviando emails. Não feche essa janela! Você será notificado por email quando terminar...\n')
 
 wrong_password = True
 while wrong_password:
     try:
-        server.send(subject=subject, contents=source_body, attachments=attachment_file_name, bcc=emails)
+        if attachment_file_name == '':
+            server.send(subject=subject, contents=source_body, bcc=emails)
+        else:
+            server.send(subject=subject, contents=source_body, attachments=attachment_file_name, bcc=emails)
     except:
         print('Email ou senha do remetente incorretos! Digite-os novamente.')
         server = get_server()
+        print('Enviando emails. Não feche essa janela! Você será notificado por email quando terminar...\n')
     else:
         wrong_password = False
 
 server.send(subject='Sua lista de transmissão terminou', contents='Sua lista de transmissão terminou.')
 
-print()
 input('Fim do processo. Para sair, aperte [ENTER]\n')
