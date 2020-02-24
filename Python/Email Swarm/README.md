@@ -14,7 +14,7 @@ Caso tenha dúvidas de como permitir o acesso, entre na conta em questão e siga
 
 ## Destinatários
 
-Crie um arquivo de texto simples (`.txt`) chamado `contacts.txt` e salve-o na mesma pasta que o Email Swarm.
+Crie um arquivo de texto simples (`.txt`) chamado `contacts.txt` e salve-o na mesma pasta que o Email Swarm (`email_swarm.exe`).
 
 Esse arquivo deve conter todos os endereços de email que você deseja enviar.
 
@@ -43,15 +43,13 @@ email@dominio.com,email_2@dominio.com,arroz@feijao.com.br
 
 ## Assunto
 
-Esse é simples! Quando o Email Swarm solicitar o assunto, digite e aperte `ENTER`.
+Esse é simples! Quando o Email Swarm solicitar "`Digite o nome do arquivo a ser anexado: `", digite o que quiser e aperte `ENTER`.
 
 ## Corpo do email
 
-Igual à lista de destinatários, você deverá escrever o corpo do email em um arquivo de texto simples (`.txt`) e salvá-lo como `message.txt`.
+Igual à lista de destinatários, você deverá escrever o corpo do email em um arquivo de texto simples (`.txt`) e salvá-lo como `message.txt`, no mesmo local que o Email Swarm se encontra (`email_swarm.exe`).
 
-Essa distribuição do Email Swarm **não suporta** textos customizáveis, por uma questão de simplicidade de uso.
-
-Para utilizar textos customizáveis, como adicionar o nome do destinatário em cada email automaticamente, contate o dono do programa.
+Essa distribuição do Email Swarm **não suporta** textos customizáveis, por uma questão de simplicidade de uso ao usuário. Para utilizar textos customizáveis, como adicionar o nome do destinatário em cada email automaticamente, contate o dono do programa.
 
 ## Anexo
 
@@ -59,7 +57,7 @@ Quando o programa solicitar "`Digite o nome do arquivo a ser anexado: `", digite
 
 Você tem duas opções para incluir seu anexo:
 
-1. Copie o arquivo a ser anexado para a mesma pasta que o Email Swarm se encontra. Em seguida, escreva o nome do arquivo **incluindo extensão** no Email Swarm, quando for solicitado.
+1. Copie o arquivo a ser anexado para a mesma pasta que o Email Swarm se encontra (`email_swarm.exe`). Em seguida, escreva o nome do arquivo **incluindo extensão** no Email Swarm, quando for solicitado.
 
     Exemplo: `anexo.png`
 
