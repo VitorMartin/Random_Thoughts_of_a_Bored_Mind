@@ -48,10 +48,9 @@ function third() {
 
 
 
+
 ///////////////////////////////////////
 // Lecture: The this keyword
-
-
 
 
 
@@ -91,69 +90,3 @@ approversNames = lista;
 
 
 console.log(approversNames);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
