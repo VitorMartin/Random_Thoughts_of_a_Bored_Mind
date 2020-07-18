@@ -1,0 +1,22 @@
+{
+  "name": "selenium-example",
+  "version": "1.0.0",
+  "description": "First Selenium application, from CodingSrc's Youtube channel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VitorMartin/Random_Thoughts_of_a_Bored_Mind.git"
+  },
+  "author": "Vitor M. Simoni",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VitorMartin/Random_Thoughts_of_a_Bored_Mind/issues"
+  },
+  "homepage": "https://github.com/VitorMartin/Random_Thoughts_of_a_Bored_Mind#readme",
+  "dependencies": {
+    "selenium-webdriver": "^4.0.0-alpha.7"
+  }
+}
