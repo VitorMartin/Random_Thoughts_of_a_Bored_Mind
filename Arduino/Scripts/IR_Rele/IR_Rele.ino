@@ -1,7 +1,7 @@
 #include <IRremote.h>
 
-const char infra = 7;
-const char rele = 8;
+const char infra = 4;
+const char control = 13;
 
 IRrecv irrecv(infra);
 
@@ -9,26 +9,22 @@ decode_results results;
 
 void setup()
 {
+  digitalWrite(control, LOW);
+  pinMode(control, OUTPUT);
   Serial.begin(9600);
-  pinMode(rele, OUTPUT);
-  digitalWrite(rele, LOW);
   Serial.println("Enabling IRin");
   irrecv.enableIRIn(); // Start the receiver
-  Serial.println("Enabled IRin");
+  Serial.println("IRin Enabled");
 }
 
 void loop() {
   if (irrecv.decode(&results)) {
     Serial.println(results.value, HEX);
-    if(results.value == 0x10037 || results.value == 0x37){
-      if(digitalRead(rele) == LOW){
-        digitalWrite(rele, HIGH);
-        delay(2000);
-      }
-      else{
-        digitalWrite(rele, LOW);
-        delay(2000);
-      }
+    if(results.value == 0x10031 || results.value == 0x31){
+      digitalWrite(control, HIGH); // Toggle
+      delay(500);
+      digitalWrite(control, LOW);
+      delay(1000);
     }
     irrecv.resume(); // Receive the next value
   }
